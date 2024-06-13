@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RolesOnUsers;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RolesOnUsersController extends Controller
@@ -30,5 +31,15 @@ class RolesOnUsersController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function roles(Request $request)
+    {
+        $user = $request->user();
+        $roles = RolesOnUsers::with('role')
+                ->where('user_id', $user->id)
+                ->get();
+
+        return $roles->pluck('role.name')->toArray();
     }
 }

@@ -22,7 +22,8 @@ class AuthController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24);
 
         return response()->json([
-            'user' => $user
+            'user' => $user,
+            'token' => $token
         ])->withCookie($cookie);
     }
 
