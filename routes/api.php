@@ -22,6 +22,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::apiResource('users', UserController::class); 
+    Route::get('entrycode', [UserController::class, 'entry_code']); 
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('rolesonusers', RolesOnUsersController::class);
     Route::get('permissions', [RolesOnUsersController::class, 'roles']);

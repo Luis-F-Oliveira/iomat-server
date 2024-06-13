@@ -29,6 +29,30 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return response()->json([
+            "message" => "success"
+        ], 200);
+    }
+
+    public function entry_code()
+    {
+        $users = User::all();
+        $existingCodes = $users->pluck('entry_code')->toArray();
+        
+        $entryCode = $this->generateUniqueEntryCode($existingCodes);
+        
+        return response()->json(['entry_code' => $entryCode]);
+    }
+
+    private function generateUniqueEntryCode($existingCodes)
+    {
+        do {
+            $newCode = (string) rand(100000, 999999);
+        } while (in_array($newCode, $existingCodes));
+
+        return $newCode;
     }
 }
