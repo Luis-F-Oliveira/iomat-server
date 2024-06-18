@@ -24,7 +24,8 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
+        User::where('id', $id)->update($request->all());
+        return User::find($id);
     }
 
     public function destroy(string $id)

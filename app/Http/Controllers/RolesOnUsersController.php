@@ -42,4 +42,28 @@ class RolesOnUsersController extends Controller
 
         return $roles->pluck('role.name')->toArray();
     }
+
+    public function get_permissions(string $id)
+    {
+        $roles = RolesOnUsers::with('role')
+                ->where('user_id', $id)
+                ->get();
+
+        return $roles;
+    }
+
+    public function delete_permissions(string $id)
+    {
+        $roles = RolesOnUsers::with('role')
+                ->where('user_id', $id)
+                ->get();
+
+        foreach ($roles as $role) {
+            $role->delete();
+        }
+
+        return response()->json([
+            'message' => 'Permissões deletadas com sucesso'
+        ], 200);
+    }
 }
