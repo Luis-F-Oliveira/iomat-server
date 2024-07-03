@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolesOnUsersController;
 use App\Http\Controllers\ServantController;
+use App\Http\Controllers\CollectedDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('permissions/{id}', [RolesOnUsersController::class, 'get_permissions']);
     Route::delete('permissions/{id}', [RolesOnUsersController::class, 'delete_permissions']);
     Route::apiResource('servants', ServantController::class);
+    Route::apiResource('collecteddata', CollectedDataController::class)
+        ->except('show', 'update', 'destroy');
+    Route::post('exportdata', [CollectedDataController::class, 'export']);
 });
