@@ -89,7 +89,7 @@ class UserController extends Controller
 
             return response()->json([
                 'message' => 'Usuário deletado'
-            ]);
+            ], 204);
         } catch (Exception $e) {
             return response()->json([
                 "error" => $e->getMessage()
