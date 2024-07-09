@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('servants', function (Blueprint $table) {
+        Schema::create('suspended_servants', function (Blueprint $table) {
             $table->id();
-            $table->string('enrollment', 9);
-            $table->string('contract', 2);
-            $table->string('name', 255);
-            $table->string('email', 255)->nullable();
+            $table->foreignId('servant_id')->constrained('servants');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('servants');
+        Schema::dropIfExists('suspended_servants');
     }
 };
